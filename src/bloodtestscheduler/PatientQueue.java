@@ -8,6 +8,6 @@ package bloodtestscheduler;
  *
  * @author Darren
  */
-public class PatientList {
+public class PatientQueue {
     
 }
