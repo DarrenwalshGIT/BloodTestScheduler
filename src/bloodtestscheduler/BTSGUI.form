@@ -202,31 +202,49 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="No Show"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="noShowBTNActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="lowBTN">
       <Properties>
         <Property name="text" type="java.lang.String" value="Low"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lowBTNActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="mediumBTN">
       <Properties>
         <Property name="text" type="java.lang.String" value="Medium"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mediumBTNActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="urgentBTN">
       <Properties>
         <Property name="text" type="java.lang.String" value="Urgent"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="urgentBTNActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="yesBTN">
       <Properties>
         <Property name="text" type="java.lang.String" value="Yes"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="yesBTNActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="noBTN">
       <Properties>
         <Property name="text" type="java.lang.String" value="No"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="noBTNActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>

@@ -16,9 +16,8 @@ public class Patient {
     private String priority;
     private boolean fromWard;
     private String gpDetails;
-    
-    //test comment for practice purposes
 
+    //test comment for practice purposes
     //patient constructor with all neccessery details
     public Patient(String name, int age, String priority, boolean fromWard, String gpDetails) {
         this.name = name;
@@ -27,7 +26,7 @@ public class Patient {
         this.fromWard = fromWard;
         this.gpDetails = gpDetails;
     }
-    
+
     //Get methods to retieve info from text fields & buttons
     public String getName() {
         return name;
@@ -48,10 +47,13 @@ public class Patient {
     public String getGpDetails() {
         return gpDetails;
     }
-    
-    //toString method
-    public String toString(){
-        return name + age + priority + fromWard + gpDetails;
+
+    //toString method 
+    //(Updated to read properly)
+    @Override
+    public String toString() {
+        return "Name: " + name + ", Age: " + age + ", Priority: " + priority
+                + ", From Ward: " + (fromWard ? "Yes" : "No") + ", GP Details: " + gpDetails;
     }
-    
+
 }

@@ -4,17 +4,31 @@
  */
 package bloodtestscheduler;
 
+import javax.swing.DefaultListModel;
+
 /**
  *
  * @author Darren
  */
 public class BTSGUI extends javax.swing.JFrame {
 
+    //Creating models for my list boxes
+    private DefaultListModel<String> currentListModel;
+    private DefaultListModel<String> noShowListModel;
+    String priority = "";
+
     /**
      * Creates new form BTSGUI
      */
     public BTSGUI() {
         initComponents();
+
+        //Initializing Models
+        currentListModel = new DefaultListModel<>();
+        noShowListModel = new DefaultListModel<>();
+
+        currentLIST.setModel(currentListModel);
+        noShowLIST.setModel(noShowListModel);
     }
 
     /**
@@ -71,16 +85,46 @@ public class BTSGUI extends javax.swing.JFrame {
         });
 
         noShowBTN.setText("No Show");
+        noShowBTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                noShowBTNActionPerformed(evt);
+            }
+        });
 
         lowBTN.setText("Low");
+        lowBTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lowBTNActionPerformed(evt);
+            }
+        });
 
         mediumBTN.setText("Medium");
+        mediumBTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mediumBTNActionPerformed(evt);
+            }
+        });
 
         urgentBTN.setText("Urgent");
+        urgentBTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                urgentBTNActionPerformed(evt);
+            }
+        });
 
         yesBTN.setText("Yes");
+        yesBTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                yesBTNActionPerformed(evt);
+            }
+        });
 
         noBTN.setText("No");
+        noBTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                noBTNActionPerformed(evt);
+            }
+        });
 
         noShowLIST.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -208,9 +252,76 @@ public class BTSGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Method that retrieves Patient info and adds them to List
     private void requestBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestBTNActionPerformed
         // TODO add your handling code here:
+        String name = nameTF.getText();
+        int age = Integer.parseInt(ageTF.getText());
+        String priority = getSelectedPriority();
+        boolean fromWard = yesBTN.isSelected();
+        String gpDetails = gpTF.getText();
+
+        //Create a new patient
+        Patient newPatient = new Patient(name, age, priority, fromWard, gpDetails);
+
+        //Adds Patient to list when Request button is pressed
+        currentListModel.addElement(newPatient.toString());
+
+        //Clear the form fields after adding
+        nameTF.setText("");
+        ageTF.setText("");
+        gpTF.setText("");
     }//GEN-LAST:event_requestBTNActionPerformed
+
+    private void noShowBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_noShowBTNActionPerformed
+        // TODO add your handling code here:
+
+        //Selects patient from 'Current Queue' List
+        String selectedPatient = currentLIST.getSelectedValue();
+
+        if (selectedPatient != null) {
+            // Remove from 'Current Queue' List and adds them to 'No Show List'
+            currentListModel.removeElement(selectedPatient);
+            noShowListModel.addElement(selectedPatient);
+        }
+    }//GEN-LAST:event_noShowBTNActionPerformed
+    
+    // Adding functionality to ALL Buttons
+    private void setPriority(String priority) {
+        this.priority = priority;
+    }
+
+    private void lowBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lowBTNActionPerformed
+        // TODO add your handling code here:
+        setPriority("Low");
+    }//GEN-LAST:event_lowBTNActionPerformed
+
+    private void mediumBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mediumBTNActionPerformed
+        // TODO add your handling code here:
+        setPriority("Medium");
+    }//GEN-LAST:event_mediumBTNActionPerformed
+
+    private void urgentBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_urgentBTNActionPerformed
+        // TODO add your handling code here:
+        setPriority("Urgent");
+    }//GEN-LAST:event_urgentBTNActionPerformed
+
+    private void yesBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yesBTNActionPerformed
+        // TODO add your handling code here:
+        yesBTN.setSelected(true);
+        noBTN.setSelected(false);
+    }//GEN-LAST:event_yesBTNActionPerformed
+
+    private void noBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_noBTNActionPerformed
+        // TODO add your handling code here:
+        noBTN.setSelected(true);
+        yesBTN.setSelected(false);
+    }//GEN-LAST:event_noBTNActionPerformed
+
+    //Priority selection method 
+    private String getSelectedPriority() {
+        return priority;
+    }
 
     /**
      * @param args the command line arguments
