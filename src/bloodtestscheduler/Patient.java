@@ -5,16 +5,18 @@
 package bloodtestscheduler;
 
 /**
- *
- * @author Darren
+ * 14 - 16 March 2025
+ * @author Darren Walsh x23140003
+ * Data Structures & Algorithms CA1
  */
+
 public class Patient {
 
     //Assigned Variables
-    private String name;
-    private int age;
-    private String priority;
-    private boolean fromWard;
+    private final String name;
+    private final int age;
+    private final String priority;
+    private final boolean fromWard;
     private String gpDetails;
 
     //test comment for practice purposes

@@ -5,9 +5,11 @@
 package bloodtestscheduler;
 
 /**
- *
- * @author Darren
+ * 14 - 16 March 2025
+ * @author Darren Walsh x23140003
+ * Data Structures & Algorithms CA1
  */
+
     public interface PQInterface {
         public void enqueue(int key, Object element);
         public int size();

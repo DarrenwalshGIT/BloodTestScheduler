@@ -4,18 +4,21 @@
  */
 package bloodtestscheduler;
 
+//Imports
 import javax.swing.DefaultListModel;
 
 /**
- *
- * @author Darren
+ * 14 - 16 March 2025
+ * @author Darren Walsh x23140003
+ * Data Structures & Algorithms CA1
  */
 public class BTSGUI extends javax.swing.JFrame {
 
     //Creating models for my list boxes
-    private DefaultListModel<String> currentListModel;
-    private DefaultListModel<String> noShowListModel;
-    String priority = "";
+    private final DefaultListModel<String> currentListModel = new DefaultListModel<>();
+    private final DefaultListModel<String> noShowListModel = new DefaultListModel<>();
+    PatientPQ patientQueue = new PatientPQ();
+    int MAX_NO_SHOWS = 5;
 
     /**
      * Creates new form BTSGUI
@@ -24,9 +27,6 @@ public class BTSGUI extends javax.swing.JFrame {
         initComponents();
 
         //Initializing Models
-        currentListModel = new DefaultListModel<>();
-        noShowListModel = new DefaultListModel<>();
-
         currentLIST.setModel(currentListModel);
         noShowLIST.setModel(noShowListModel);
     }
@@ -51,17 +51,14 @@ public class BTSGUI extends javax.swing.JFrame {
         gpTF = new javax.swing.JTextField();
         requestBTN = new javax.swing.JButton();
         noShowBTN = new javax.swing.JButton();
-        lowBTN = new javax.swing.JButton();
-        mediumBTN = new javax.swing.JButton();
-        urgentBTN = new javax.swing.JButton();
-        yesBTN = new javax.swing.JButton();
-        noBTN = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         noShowLIST = new javax.swing.JList<>();
         noShowListLBL = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         currentLIST = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
+        priorityCB = new javax.swing.JComboBox<>();
+        wardCB = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -91,41 +88,6 @@ public class BTSGUI extends javax.swing.JFrame {
             }
         });
 
-        lowBTN.setText("Low");
-        lowBTN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lowBTNActionPerformed(evt);
-            }
-        });
-
-        mediumBTN.setText("Medium");
-        mediumBTN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mediumBTNActionPerformed(evt);
-            }
-        });
-
-        urgentBTN.setText("Urgent");
-        urgentBTN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                urgentBTNActionPerformed(evt);
-            }
-        });
-
-        yesBTN.setText("Yes");
-        yesBTN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                yesBTNActionPerformed(evt);
-            }
-        });
-
-        noBTN.setText("No");
-        noBTN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                noBTNActionPerformed(evt);
-            }
-        });
-
         noShowLIST.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -144,6 +106,10 @@ public class BTSGUI extends javax.swing.JFrame {
 
         jLabel1.setText("Current Queue");
 
+        priorityCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Low", "Medium", "Urgent" }));
+
+        wardCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Yes", "No" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -158,24 +124,14 @@ public class BTSGUI extends javax.swing.JFrame {
                     .addComponent(gpLBL))
                 .addGap(67, 67, 67)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(yesBTN)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(noBTN)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(requestBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lowBTN)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(mediumBTN)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(urgentBTN))
-                            .addComponent(ageTF)
-                            .addComponent(nameTF)
-                            .addComponent(gpTF))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(requestBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ageTF, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+                        .addComponent(nameTF)
+                        .addComponent(gpTF))
+                    .addComponent(priorityCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(wardCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(headerLBl)
@@ -216,20 +172,15 @@ public class BTSGUI extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(priorityLBL)
-                    .addComponent(lowBTN)
-                    .addComponent(mediumBTN)
-                    .addComponent(urgentBTN))
+                    .addComponent(priorityCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(wardLBL)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(gpLBL)
-                            .addComponent(gpTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(yesBTN)
-                        .addComponent(noBTN)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(wardLBL)
+                    .addComponent(wardCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(gpLBL)
+                    .addComponent(gpTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(requestBTN)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -257,71 +208,45 @@ public class BTSGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         String name = nameTF.getText();
         int age = Integer.parseInt(ageTF.getText());
-        String priority = getSelectedPriority();
-        boolean fromWard = yesBTN.isSelected();
+        String priority = (String) priorityCB.getSelectedItem();
+        boolean fromWard = wardCB.getSelectedItem().equals("Yes");
         String gpDetails = gpTF.getText();
 
         //Create a new patient
         Patient newPatient = new Patient(name, age, priority, fromWard, gpDetails);
 
-        //Adds Patient to list when Request button is pressed
-        currentListModel.addElement(newPatient.toString());
+        //Add patient to the persistent priority queue
+        patientQueue.enqueue(newPatient);
 
-        //Clear the form fields after adding
+        //Update the current list model with sorted queue
+        updateCurrentListModel();
+
+        //Clear input fields
         nameTF.setText("");
         ageTF.setText("");
         gpTF.setText("");
+    }
+
+// Method to update GUI list with sorted queue
+    private void updateCurrentListModel() {
+        currentListModel.clear(); //Removes all items from list
+        for (Patient patient : patientQueue.getQueue()) { //Loops through each Patient in PQ
+            currentListModel.addElement(patient.toString()); //Adds Patient to the List on the GUI
+        }
     }//GEN-LAST:event_requestBTNActionPerformed
 
     private void noShowBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_noShowBTNActionPerformed
         // TODO add your handling code here:
-
-        //Selects patient from 'Current Queue' List
-        String selectedPatient = currentLIST.getSelectedValue();
-
-        if (selectedPatient != null) {
-            // Remove from 'Current Queue' List and adds them to 'No Show List'
-            currentListModel.removeElement(selectedPatient);
-            noShowListModel.addElement(selectedPatient);
+        Patient removedPatient = patientQueue.dequeue(); //Remove highest-priority patient
+        if (removedPatient != null) {
+            String patientString = removedPatient.toString(); //Creates String of Patient
+            currentListModel.removeElement(patientString); //Removes Patient as a String
+            if (noShowListModel.size() >= MAX_NO_SHOWS) { //Checks list to see if @ max capacity
+                noShowListModel.removeElementAt(0);
+            }
+            noShowListModel.addElement(patientString);//Adds Patient to 'No Show' List on the GUI
         }
     }//GEN-LAST:event_noShowBTNActionPerformed
-    
-    // Adding functionality to ALL Buttons
-    private void setPriority(String priority) {
-        this.priority = priority;
-    }
-
-    private void lowBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lowBTNActionPerformed
-        // TODO add your handling code here:
-        setPriority("Low");
-    }//GEN-LAST:event_lowBTNActionPerformed
-
-    private void mediumBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mediumBTNActionPerformed
-        // TODO add your handling code here:
-        setPriority("Medium");
-    }//GEN-LAST:event_mediumBTNActionPerformed
-
-    private void urgentBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_urgentBTNActionPerformed
-        // TODO add your handling code here:
-        setPriority("Urgent");
-    }//GEN-LAST:event_urgentBTNActionPerformed
-
-    private void yesBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yesBTNActionPerformed
-        // TODO add your handling code here:
-        yesBTN.setSelected(true);
-        noBTN.setSelected(false);
-    }//GEN-LAST:event_yesBTNActionPerformed
-
-    private void noBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_noBTNActionPerformed
-        // TODO add your handling code here:
-        noBTN.setSelected(true);
-        yesBTN.setSelected(false);
-    }//GEN-LAST:event_noBTNActionPerformed
-
-    //Priority selection method 
-    private String getSelectedPriority() {
-        return priority;
-    }
 
     /**
      * @param args the command line arguments
@@ -368,18 +293,15 @@ public class BTSGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JButton lowBTN;
-    private javax.swing.JButton mediumBTN;
     private javax.swing.JLabel nameLBL;
     private javax.swing.JTextField nameTF;
-    private javax.swing.JButton noBTN;
     private javax.swing.JButton noShowBTN;
     private javax.swing.JList<String> noShowLIST;
     private javax.swing.JLabel noShowListLBL;
+    private javax.swing.JComboBox<String> priorityCB;
     private javax.swing.JLabel priorityLBL;
     private javax.swing.JButton requestBTN;
-    private javax.swing.JButton urgentBTN;
+    private javax.swing.JComboBox<String> wardCB;
     private javax.swing.JLabel wardLBL;
-    private javax.swing.JButton yesBTN;
     // End of variables declaration//GEN-END:variables
 }

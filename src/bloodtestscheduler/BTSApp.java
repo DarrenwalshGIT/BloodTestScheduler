@@ -4,12 +4,12 @@
  */
 package bloodtestscheduler;
 
-import javax.swing.*;
-
 /**
- *
- * @author Darren
+ * 14 - 16 March 2025
+ * @author Darren Walsh x23140003
+ * Data Structures & Algorithms CA1
  */
+
 public class BTSApp {
 
     public static void main(String args[]) {
