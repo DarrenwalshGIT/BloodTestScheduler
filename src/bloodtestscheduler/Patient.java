@@ -17,7 +17,7 @@ public class Patient {
     private final int age;
     private final String priority;
     private final boolean fromWard;
-    private String gpDetails;
+    private final String gpDetails;
 
     //test comment for practice purposes
     //patient constructor with all neccessery details

@@ -6,14 +6,14 @@ package bloodtestscheduler;
 
 /**
  * 14 - 16 March 2025
- * @author Darren Walsh x23140003
- * Data Structures & Algorithms CA1
+ *
+ * @author Darren Walsh x23140003 Data Structures & Algorithms CA1
  */
 
-    public interface PQInterface {
-        public void enqueue(int key, Object element);
-        public int size();
-        public boolean isEmpty();
-        public Object dequeue();
-        public String printPQueue();
-    }
+public interface PQInterface {
+
+    void enqueue(Patient patient); // Match your usage
+    int size();
+    Patient dequeue();
+    String printPQueue();
+}

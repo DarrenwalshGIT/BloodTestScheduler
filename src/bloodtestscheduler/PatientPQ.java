@@ -13,7 +13,7 @@ import java.util.*;
  * Data Structures & Algorithms CA1
  */
 
-public class PatientPQ {
+public class PatientPQ implements PQInterface{
 
     //List to store Patients
     private final List<Patient> queue= new ArrayList<>();
@@ -21,7 +21,13 @@ public class PatientPQ {
     public PatientPQ() {
     }
 
+    @Override
+    public int size() {
+        return queue.size();
+    }
+ 
     //Enqueue method to insert patient in correct priority order
+    @Override
     public void enqueue(Patient patient) {
         queue.add(patient);
         queue.sort((p1, p2) -> {
@@ -70,5 +76,16 @@ public class PatientPQ {
     //Method to get the current patient queue
     public List<Patient> getQueue() {
         return queue;
+    }
+    
+    public String printPQueue() {
+        return printPQueueRecursive(0); //Starts recursion at index 0
+    }
+
+    private String printPQueueRecursive(int index) {
+        if (index >= queue.size()) { //Checks is at end of Queue
+            return "";
+        }
+        return queue.get(index).toString() + "\n" + printPQueueRecursive(index + 1); //Gets Patient from first index, adds new line, calls next index
     }
 }
