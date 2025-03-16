@@ -25,6 +25,11 @@ public class PatientPQ implements PQInterface{
     public int size() {
         return queue.size();
     }
+
+    @Override
+    public boolean isEmpty() {
+        return queue.isEmpty();
+    }
  
     //Enqueue method to insert patient in correct priority order
     @Override

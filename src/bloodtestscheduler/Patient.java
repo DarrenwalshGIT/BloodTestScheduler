@@ -18,8 +18,7 @@ public class Patient {
     private final String priority;
     private final boolean fromWard;
     private final String gpDetails;
-
-    //test comment for practice purposes
+    
     //patient constructor with all neccessery details
     public Patient(String name, int age, String priority, boolean fromWard, String gpDetails) {
         this.name = name;

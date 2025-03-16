@@ -6,12 +6,12 @@ package bloodtestscheduler;
 
 /**
  * 14 - 16 March 2025
- * @author Darren Walsh x23140003
+ * @author Darren Walsh x23140003 
  * Data Structures & Algorithms CA1
  */
-
 public class BTSApp {
 
+    //Main Method
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -36,9 +36,8 @@ public class BTSApp {
         }
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new BTSGUI().setVisible(true);
-        });
+        //Calling GUI
+        BTSGUI theGUI = new BTSGUI();
+        theGUI.setVisible(true);
     }
 }
