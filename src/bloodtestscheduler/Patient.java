@@ -10,7 +10,7 @@ package bloodtestscheduler;
  * Data Structures & Algorithms CA1
  */
 
-public class Patient {
+public class Patient implements PatientInterface{
 
     //Assigned Variables
     private final String name;
@@ -29,22 +29,27 @@ public class Patient {
     }
 
     //Get methods to retieve info from text fields & buttons
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public int getAge() {
         return age;
     }
 
+    @Override
     public String getPriority() {
         return priority;
     }
 
+    @Override
     public boolean isFromWard() {
         return fromWard;
     }
 
+    @Override
     public String getGpDetails() {
         return gpDetails;
     }
